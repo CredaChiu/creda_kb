@@ -1,1 +1,14 @@
-// app global css in SCSS form
+// 定义全局变量
+:root {
+  --primary-color: #333D3A;   // RAL 6012 深绿色
+  --secondary-color: #826C34; // RAL 8000 棕褐色
+  --accent-color: #BEB098;    // 浅棕色
+  --ws1:#f7f2ea;
+  --l9:#d8d2c3;
+  --u9:#aca693;
+}
+
+// 全局背景色
+body {
+  background-color: var(--accent-color);
+} 

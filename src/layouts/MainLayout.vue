@@ -1,6 +1,7 @@
+<!--主布局-->
 <template>
   <q-layout view="lHh Lpr lFf">
-    <q-header elevated>
+    <q-header elevated style="background-color: var(--primary-color)">
       <q-toolbar>
         <q-btn
           flat
@@ -8,14 +9,15 @@
           round
           icon="menu"
           aria-label="Menu"
-          @click="toggleLeftDrawer"
+
+          @click="leftDrawerOpen = !leftDrawerOpen"
         />
 
         <q-toolbar-title>
-          Quasar App
+          Menu
         </q-toolbar-title>
 
-        <div>Quasar v{{ $q.version }}</div>
+        <q-toolbar-title>Keycaps Collection</q-toolbar-title>
       </q-toolbar>
     </q-header>
 
@@ -23,19 +25,91 @@
       v-model="leftDrawerOpen"
       show-if-above
       bordered
+      style="background-color: var(--accent-color)"
     >
       <q-list>
-        <q-item-label
-          header
-        >
-          Essential Links
-        </q-item-label>
+        <q-item clickable to="/" style="color: var(--primary-color)">
+          <q-item-section avatar>
+            <q-icon name="home" />
+          </q-item-section>
+          <q-item-section>首页</q-item-section>
+        </q-item>
 
-        <EssentialLink
-          v-for="link in linksList"
-          :key="link.title"
-          v-bind="link"
-        />
+        <q-item clickable to="/keycaps" style="color: var(--primary-color)">
+          <q-item-section avatar>
+            <q-icon name="keyboard" />
+          </q-item-section>
+          <q-item-section>Keycaps</q-item-section>
+        </q-item>
+
+        <q-item clickable to="/keyboard" style="color: var(--primary-color)">
+          <q-item-section avatar>
+            <q-icon name="keyboard" />
+          </q-item-section>
+          <q-item-section>Keyboard</q-item-section>
+        </q-item>
+
+        <q-expansion-item
+          icon="favorite"
+          label="我的收藏"
+          clickable to="/favorites"
+          default-closed
+        >
+          <q-list padding>
+            <q-item clickable to="/favorites/Keyboard">
+              <q-item-section avatar>
+                <q-icon name="keyboard" />
+              </q-item-section>
+              <q-item-section>Keyboard</q-item-section>
+            </q-item>
+
+            <q-expansion-item icon="keyboard"
+                              label="Keycaps"
+                              clickable to="/favorites/keycaps"
+                              default-closed>
+              <q-list padding>
+                <q-item clickable to="/favorites/jtk">
+                  <q-item-section avatar>
+                    <q-icon name="keyboard" />
+                  </q-item-section>
+                  <q-item-section>JTK</q-item-section>
+                </q-item>
+
+                <q-item clickable to="/favorites/gmk">
+                  <q-item-section avatar>
+                    <q-icon name="keyboard" />
+                  </q-item-section>
+                  <q-item-section>GMK</q-item-section>
+                </q-item>
+              </q-list>
+            </q-expansion-item>
+
+          </q-list>
+        </q-expansion-item>
+
+        <q-expansion-item
+          icon="shopping_cart"
+          label="我的追踪"
+          clickable to="/following"
+          default-closed
+        >
+          <q-list padding>
+            <q-item clickable to="/following/Keyboard">
+              <q-item-section avatar>
+                <q-icon name="keyboard" />
+              </q-item-section>
+              <q-item-section>Keyboard</q-item-section>
+            </q-item>
+
+            <q-item clickable to="/following/Keycaps">
+              <q-item-section avatar>
+                <q-icon name="keyboard" />
+              </q-item-section>
+              <q-item-section>Keycaps</q-item-section>
+            </q-item>
+          </q-list>
+        </q-expansion-item>
+
       </q-list>
     </q-drawer>
 
@@ -45,58 +119,24 @@
   </q-layout>
 </template>
 
-<script setup>
-import { ref } from 'vue'
-import EssentialLink from 'components/EssentialLink.vue'
-
-const linksList = [
-  {
-    title: 'Docs',
-    caption: 'quasar.dev',
-    icon: 'school',
-    link: 'https://quasar.dev'
-  },
-  {
-    title: 'Github',
-    caption: 'github.com/quasarframework',
-    icon: 'code',
-    link: 'https://github.com/quasarframework'
-  },
-  {
-    title: 'Discord Chat Channel',
-    caption: 'chat.quasar.dev',
-    icon: 'chat',
-    link: 'https://chat.quasar.dev'
-  },
-  {
-    title: 'Forum',
-    caption: 'forum.quasar.dev',
-    icon: 'record_voice_over',
-    link: 'https://forum.quasar.dev'
-  },
-  {
-    title: 'Twitter',
-    caption: '@quasarframework',
-    icon: 'rss_feed',
-    link: 'https://twitter.quasar.dev'
-  },
-  {
-    title: 'Facebook',
-    caption: '@QuasarFramework',
-    icon: 'public',
-    link: 'https://facebook.quasar.dev'
-  },
-  {
-    title: 'Quasar Awesome',
-    caption: 'Community Quasar projects',
-    icon: 'favorite',
-    link: 'https://awesome.quasar.dev'
+<script>
+export default {
+  name: 'MainLayout',
+  data () {
+    return {
+      leftDrawerOpen: false
+    }
   }
-]
-
-const leftDrawerOpen = ref(false)
-
-function toggleLeftDrawer () {
-  leftDrawerOpen.value = !leftDrawerOpen.value
 }
 </script>
+
+<style lang="scss" scoped>
+.q-drawer {
+  .q-item {
+    &:hover {
+      background-color: var(--secondary-color) !important;
+      color: white !important;
+    }
+  }
+}
+</style>

@@ -47,7 +47,7 @@ export default defineConfig((/* ctx */) => {
 
       // rebuildCache: true, // rebuilds Vite/linter/etc cache on startup
 
-      publicPath: './',
+      publicPath: '/creda_kb/',
       // analyze: true,
       // env: {},
       // rawDefine: {}
